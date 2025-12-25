@@ -1,5 +1,3 @@
----
-
 ## 🎮 README for **Odin Rock Paper Scissors**
 ```markdown
 # Odin Rock Paper Scissors
