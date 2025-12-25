@@ -34,8 +34,3 @@ Select your choice and the computer randomly picks one too — winner is shown e
 
 ---
 
-## 💻 How to Use
-
-1. Clone the repo  
-   ```bash
-   git clone https://github.com/<yourusername>/odin-rockpaperscissors.git
