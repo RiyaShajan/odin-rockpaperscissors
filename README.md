@@ -1,5 +1,3 @@
-# odin-rockpaperscissors
-
 ---
 
 ## 🎮 README for **Odin Rock Paper Scissors**
