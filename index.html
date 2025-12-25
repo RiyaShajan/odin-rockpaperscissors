@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rock Paper Scissors</title>
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at top,#0a1a3a,#020b1f);
+    font-family:"Segoe UI",sans-serif;
+    color:#9fdcff;
+}
+
+.container{
+    background:rgba(10,30,70,0.9);
+    border:1px solid #1e90ff;
+    border-radius:16px;
+    padding:35px;
+    width:340px;
+    text-align:center;
+    box-shadow:0 0 25px rgba(30,144,255,0.4);
+}
+
+h1{
+    margin-bottom:20px;
+    color:#6fe3ff;
+    text-shadow:0 0 10px #1e90ff;
+}
+
+.buttons{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+button{
+    background:#041a3d;
+    color:#9fdcff;
+    border:1px solid #1e90ff;
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 10px rgba(30,144,255,0.3);
+}
+
+button:hover{
+    background:#0b2a63;
+    box-shadow:0 0 20px #1e90ff;
+    transform:translateY(-2px);
+}
+
+button:disabled{
+    opacity:0.4;
+    cursor:not-allowed;
+}
+
+#result{
+    font-size:16px;
+    line-height:1.6;
+    margin-top:10px;
+}
+
+.score{
+    margin-top:10px;
+    font-size:14px;
+    color:#7dd3ff;
+}
+
+.round{
+    margin-top:8px;
+    font-size:13px;
+    color:#5fbfff;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Rock Paper Scissors</h1>
+
+    <div class="buttons">
+        <button onclick="playRound('rock')">Rock</button>
+        <button onclick="playRound('paper')">Paper</button>
+        <button onclick="playRound('scissors')">Scissors</button>
+    </div>
+
+    <div id="result"></div>
+    <div class="score" id="score"></div>
+    <div class="round" id="round"></div>
+</div>
+
+<script>
+let humanScore = 0
+let computerScore = 0
+let currentRound = 1
+const maxRounds = 5
+
+function getComputerChoice(){
+    const choices = ["rock","paper","scissors"]
+    return choices[Math.floor(Math.random()*3)]
+}
+
+function playRound(humanChoice){
+    if(currentRound > maxRounds) return
+
+    const computerChoice = getComputerChoice()
+    let text = ""
+
+    if(humanChoice === computerChoice){
+        text = "Tie!"
+    }else if(
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")
+    ){
+        humanScore++
+        text = "You win! " + humanChoice + " beats " + computerChoice
+    }else{
+        computerScore++
+        text = "You lose! " + computerChoice + " beats " + humanChoice
+    }
+
+    document.getElementById("result").innerHTML =
+        "You: " + humanChoice + "<br>Computer: " + computerChoice + "<br>" + text
+
+    document.getElementById("score").innerHTML =
+        "Human: " + humanScore + " | Computer: " + computerScore
+
+    document.getElementById("round").innerHTML =
+        "Round " + currentRound + " of " + maxRounds
+
+    if(currentRound === maxRounds){
+        endGame()
+    }
+
+    currentRound++
+}
+
+function endGame(){
+    let finalText = ""
+    if(humanScore > computerScore){
+        finalText = "You win the game!"
+    }else if(computerScore > humanScore){
+        finalText = "Computer wins the game!"
+    }else{
+        finalText = "The game is a tie!"
+    }
+
+    document.getElementById("result").innerHTML += "<br><br>" + finalText
+
+    document.querySelectorAll("button").forEach(b => b.disabled = true)
+}
+</script>
+
+</body>
+</html>
